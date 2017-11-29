@@ -10,13 +10,15 @@ import UIKit
 import DataKit
 
 class TableViewController: UITableViewController {
-    let maxSections = 2
-    let maxRows = 5
-    var data = [Int: [Icon]]()
+    let maxSections = 5
+    let maxRows = 15
+    lazy var dataIcon = [Int: [Icon]]()
+    lazy var dataImage = [Int: [NetworkImage]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        data = generateIcons(sections: maxSections, rows: maxRows)
+        dataIcon = generateIcons(sections: maxSections, rows: maxRows)
+        dataImage = generateImages(sections: maxSections, rows: maxRows)
     }
 
     // MARK: - Table view data source
@@ -34,21 +36,31 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let iconOrImage = arc4random_uniform(2) == 0
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: iconOrImage ? "icon" : "image", for: indexPath)
         
-        let content = data[indexPath.section]![indexPath.row]
-        
-        cell.textLabel?.text = content.name
-        cell.detailTextLabel?.text = content.description
-        
-        var img = UIImage(named: content.imageName)
-        img = img?.withRenderingMode(.alwaysTemplate)
-        cell.imageView?.image = img
-        cell.imageView?.tintColor =
-            UIColor(displayP3Red: CGFloat(normalizedRandom()),
-                    green: CGFloat(normalizedRandom()),
-                    blue: CGFloat(normalizedRandom()),
-                    alpha: 1)
+        if iconOrImage {
+            let content = dataIcon[indexPath.section]![indexPath.row]
+            
+            cell.textLabel?.text = content.name
+            cell.detailTextLabel?.text = content.description
+            
+            var img = UIImage(named: content.imageName)
+            img = img?.withRenderingMode(.alwaysTemplate)
+            cell.imageView?.image = img
+            cell.imageView?.tintColor =
+                UIColor(displayP3Red: CGFloat(normalizedRandom()),
+                        green: CGFloat(normalizedRandom()),
+                        blue: CGFloat(normalizedRandom()),
+                        alpha: 1)
+        } else {
+            let content = dataImage[indexPath.section]![indexPath.row]
+            
+            cell.textLabel?.text = content.name
+            cell.detailTextLabel?.text = content.description
+            cell.imageView?.downloadImage(url: URL(string: content.link)!)
+        }
 
         return cell
     }

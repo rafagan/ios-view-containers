@@ -75,8 +75,8 @@ fileprivate func randomImageUrl() -> String {
     return "https://picsum.photos/\(arc4random_uniform(900) + 100)/?random"
 }
 
-extension UIImageView {
-    func downloadImage(url: URL) {
+public extension UIImageView {
+    public func downloadImage(url: URL) {
         guard let data = try? Data(contentsOf: url) else { return }
         self.image = UIImage(data: data)
     }
