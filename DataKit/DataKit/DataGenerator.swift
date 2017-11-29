@@ -112,3 +112,7 @@ public func generateImages(sections: Int, rows: Int) -> [Int: [NetworkImage]] {
     
     return dict
 }
+
+public func normalizedRandom() -> Float {
+    return Float(arc4random()) / Float(UINT32_MAX)
+}
