@@ -10,7 +10,8 @@ import UIKit
 import DataKit
 
 class TableViewController: UITableViewController {
-
+    var data = generateIcons(sections: 2, rows: 2)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         helloFramework()
