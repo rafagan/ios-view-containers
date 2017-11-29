@@ -15,6 +15,8 @@ class TableViewController: UITableViewController {
     lazy var dataIcon = [Int: [Icon]]()
     lazy var dataImage = [Int: [NetworkImage]]()
     
+    var cache = [String: UIImageView]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dataIcon = generateIcons(sections: maxSections, rows: maxRows)
@@ -34,7 +36,7 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return maxRows
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let iconOrImage = arc4random_uniform(2) == 0
         let cell = tableView.dequeueReusableCell(
@@ -59,7 +61,7 @@ class TableViewController: UITableViewController {
             
             cell.textLabel?.text = content.name
             cell.detailTextLabel?.text = content.description
-            cell.imageView?.downloadImage(url: URL(string: content.link)!)
+            cell.imageView?.downloadImageAsync(url: URL(string: content.link)!)
         }
 
         return cell
