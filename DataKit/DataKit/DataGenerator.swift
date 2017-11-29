@@ -83,7 +83,7 @@ public extension UIImageView {
     
     public func downloadImageAsync(url: URL) {
         URLSession.shared.dataTask(with: url, completionHandler:
-            { (data, response, error) -> Void in
+            { [weak self] (data, response, error) -> Void in
             
             if error != nil {
                 print(error ?? "Error in imageFromServerURL")
