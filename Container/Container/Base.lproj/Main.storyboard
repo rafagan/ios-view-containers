@@ -27,9 +27,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4mw-7F-LdB">
-                                            <rect key="frame" x="16" y="11" width="120" height="98"/>
+                                            <rect key="frame" x="16" y="11" width="120" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="120" id="499-9Y-q1m"/>
+                                                <constraint firstAttribute="height" constant="100" id="EKp-Cf-oKh"/>
                                             </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zG8-Mx-b5x">
@@ -57,12 +58,11 @@
                                         <constraint firstItem="4mw-7F-LdB" firstAttribute="leading" secondItem="mYw-ry-BDh" secondAttribute="leadingMargin" id="Ouh-1q-cWC"/>
                                         <constraint firstItem="4mw-7F-LdB" firstAttribute="top" secondItem="mYw-ry-BDh" secondAttribute="topMargin" id="V8e-9F-vmK"/>
                                         <constraint firstItem="zG8-Mx-b5x" firstAttribute="top" secondItem="mYw-ry-BDh" secondAttribute="topMargin" id="pIJ-Xz-iKh"/>
-                                        <constraint firstItem="4mw-7F-LdB" firstAttribute="bottom" secondItem="mYw-ry-BDh" secondAttribute="bottomMargin" id="pKF-Vh-QBV"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="contentTextLabel" destination="V9d-rE-eA7" id="yAR-wc-cr7"/>
-                                    <outlet property="image" destination="4mw-7F-LdB" id="VBU-Eg-fYY"/>
+                                    <outlet property="leftImage" destination="4mw-7F-LdB" id="dTI-lJ-Poo"/>
                                     <outlet property="titleLabel" destination="wCF-Zh-LI0" id="bZc-mt-I7U"/>
                                 </connections>
                             </tableViewCell>

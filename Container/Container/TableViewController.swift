@@ -40,18 +40,18 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let iconOrImage = arc4random_uniform(2) == 0
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: iconOrImage ? "icon" : "image", for: indexPath)
+            withIdentifier: "cell", for: indexPath) as! TableViewCell
         
         if iconOrImage {
             let content = dataIcon[indexPath.section]![indexPath.row]
             
-            cell.textLabel?.text = content.name
-            cell.detailTextLabel?.text = content.description
+            cell.titleLabel.text = content.name
+            cell.contentTextLabel.text = content.description
             
             var img = UIImage(named: content.imageName)
             img = img?.withRenderingMode(.alwaysTemplate)
-            cell.imageView?.image = img
-            cell.imageView?.tintColor =
+            cell.leftImage.image = img
+            cell.leftImage.tintColor =
                 UIColor(displayP3Red: CGFloat(normalizedRandom()),
                         green: CGFloat(normalizedRandom()),
                         blue: CGFloat(normalizedRandom()),
@@ -59,9 +59,9 @@ class TableViewController: UITableViewController {
         } else {
             let content = dataImage[indexPath.section]![indexPath.row]
             
-            cell.textLabel?.text = content.name
-            cell.detailTextLabel?.text = content.description
-            cell.imageView?.downloadImageAsync(url: URL(string: content.link)!)
+            cell.titleLabel.text = content.name
+            cell.contentTextLabel.text = content.description
+            cell.leftImage.downloadImageAsync(url: URL(string: content.link)!)
         }
 
         return cell
