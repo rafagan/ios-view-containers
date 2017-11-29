@@ -58,6 +58,7 @@
                                         <constraint firstItem="4mw-7F-LdB" firstAttribute="leading" secondItem="mYw-ry-BDh" secondAttribute="leadingMargin" id="Ouh-1q-cWC"/>
                                         <constraint firstItem="4mw-7F-LdB" firstAttribute="top" secondItem="mYw-ry-BDh" secondAttribute="topMargin" id="V8e-9F-vmK"/>
                                         <constraint firstItem="zG8-Mx-b5x" firstAttribute="top" secondItem="mYw-ry-BDh" secondAttribute="topMargin" id="pIJ-Xz-iKh"/>
+                                        <constraint firstAttribute="bottom" secondItem="4mw-7F-LdB" secondAttribute="bottom" priority="300" constant="9" id="wem-c3-Wp9"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
