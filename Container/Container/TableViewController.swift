@@ -42,10 +42,18 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var max = 0
         for (_, list) in (dataIcon) {
+            if list.count < max {
+                max = list.count
+            }
+        }
+        
+        for (_, list) in (dataImage) {
             if list.count > max {
                 max = list.count
             }
         }
+        
+        
         return max
     }
     
@@ -53,6 +61,12 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
         let iconOrImage = arc4random_uniform(2) == 0
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "cell", for: indexPath) as! TableViewCell
+        
+        if indexPath.row >= (dataIcon[indexPath.section]?.count)! ||
+            indexPath.row >= (dataImage[indexPath.section]?.count)! {
+            return tableView.dequeueReusableCell(
+                withIdentifier: "placeholder", for: indexPath)
+        }
         
         if iconOrImage {
             let content = dataIcon[indexPath.section]![indexPath.row]
