@@ -9,9 +9,13 @@
 import UIKit
 import DataKit
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, UISearchBarDelegate {
+    @IBOutlet weak var search: UISearchBar!
+    
     let maxSections = 5
     let maxRows = 15
+    lazy var originalDataIcon = [Int: [Icon]]()
+    lazy var originalDataImage = [Int: [NetworkImage]]()
     lazy var dataIcon = [Int: [Icon]]()
     lazy var dataImage = [Int: [NetworkImage]]()
     
@@ -20,7 +24,9 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dataIcon = generateIcons(sections: maxSections, rows: maxRows)
+        originalDataIcon = dataIcon
         dataImage = generateImages(sections: maxSections, rows: maxRows)
+        originalDataImage = dataImage
     }
 
     // MARK: - Table view data source
@@ -34,7 +40,13 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return maxRows
+        var max = 0
+        for (_, list) in (dataIcon) {
+            if list.count > max {
+                max = list.count
+            }
+        }
+        return max
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,5 +77,36 @@ class TableViewController: UITableViewController {
         }
 
         return cell
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            dataIcon = originalDataIcon
+            dataImage = originalDataImage
+            tableView.reloadData()
+            return
+        }
+        
+        for (section, list) in originalDataIcon {
+            let filtered = list.filter {
+                let textToSearch = "\($0.name) \($0.description)"
+                return textToSearch.range(of: searchText) != nil
+            }
+            dataIcon[section] = filtered
+        }
+        
+        for (section, list) in originalDataImage {
+            let filtered = list.filter {
+                let textToSearch = "\($0.name) \($0.description)"
+                return textToSearch.range(of: searchText) != nil
+            }
+            dataImage[section] = filtered
+        }
+        
+        tableView.reloadData()
     }
 }
